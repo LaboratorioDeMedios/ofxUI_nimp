@@ -30,6 +30,7 @@
 class ofxUITextInput : public ofxUIWidgetWithLabel
 {
 public:
+    ofxUITextInput();
     ofxUITextInput(string _name, string _textstring, float w, float h = 0, float x = 0, float y = 0, int _size = OFX_UI_FONT_SMALL);
     void init(string _name, string _textstring, float w, float h = 0, float x = 0, float y = 0, int _size = OFX_UI_FONT_SMALL);
     virtual void setDrawPadding(bool _draw_padded_rect);
@@ -39,7 +40,7 @@ public:
     void mouseDragged(int x, int y, int button);
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
-    void keyPressed(int key);
+    virtual void keyPressed(int key);
     void unClick();
     void stateChange();
 	bool isClicked();

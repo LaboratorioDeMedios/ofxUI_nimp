@@ -26,6 +26,8 @@
 #include "ofxUITextInput.h"
 #include "ofxUI.h"
 
+ofxUITextInput::ofxUITextInput() {}
+
 ofxUITextInput::ofxUITextInput(string _name, string _textstring, float w, float h, float x, float y, int _size) : ofxUIWidgetWithLabel()
 {
     init(_name, _textstring, w, h, x, y, _size);
