@@ -30,6 +30,9 @@
 class ofxUIRangeSlider : public ofxUIWidgetWithLabel
 {
 public:
+    // nico slider
+    ofxUIRangeSlider() {};
+    
     ofxUIRangeSlider(string _name, float _min, float _max, float _valuelow, float _valuehigh, float w, float h, float x = 0, float y = 0, int _size = OFX_UI_FONT_SMALL);
     ofxUIRangeSlider(string _name, float _min, float _max, float *_valuelow, float *_valuehigh, float w, float h, float x = 0, float y = 0, int _size = OFX_UI_FONT_SMALL);
     ofxUIRangeSlider(float x, float y, float w, float h, float _min, float _max, float _valuelow, float _valuehigh, string _name, int _size = OFX_UI_FONT_SMALL);
