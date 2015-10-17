@@ -64,6 +64,20 @@ void ofxUIDropDownList::init(string _name, vector<string> items, float w, float 
     singleSelected = NULL;
 }
 
+void ofxUIDropDownList::update() {
+    
+    // mili - calculate toggles position based on visible toggles.
+    float yt = rect->getHeight();
+    for(unsigned int i = 0; i < toggles.size(); i++)
+    {
+        ofxUILabelToggle *t = toggles[i];
+        toggles[i]->getRect()->setY(yt);
+        if (toggles[i]->isVisible())
+            yt += toggles[i]->getRect()->getHeight();
+    }
+    //
+}
+
 void ofxUIDropDownList::draw()
 {
     ofxUIPushStyle();
@@ -91,6 +105,7 @@ void ofxUIDropDownList::clearToggles()
         ofxUILabelToggle *t = toggles[0];
         removeToggle(t->getName());
     }
+    toggles.clear();
 }
 
 void ofxUIDropDownList::clearSelected()
@@ -178,6 +193,18 @@ void ofxUIDropDownList::removeToggle(string toggleName)
     if(t != NULL)
     {
         parent->removeWidget(t);
+        
+        //mili remove embedded widget t from the dropdownlist
+        int i = 0;
+        while(i < embeddedWidgets.size())
+        {
+            if (embeddedWidgets[i] == t) {
+                embeddedWidgets.erase(embeddedWidgets.begin() + i);
+                break;
+            }
+            i++;
+        }
+        //
         
         float yt = rect->getHeight();
         for(unsigned int i = 0; i < toggles.size(); i++)

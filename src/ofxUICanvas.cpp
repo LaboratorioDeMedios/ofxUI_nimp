@@ -1112,6 +1112,7 @@ void ofxUICanvas::removeWidget(ofxUIWidget *widget)
     
     lastAddeds.erase( std::remove( lastAddeds.begin(), lastAddeds.end(), widget ), lastAddeds.end() );
     delete widget;
+    widget = NULL;
 }
 
 void ofxUICanvas::addWidget(ofxUIWidget *widget) {
