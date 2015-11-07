@@ -355,3 +355,12 @@ void ofxUISuperCanvas::maximize()
     }
     autoSizeToFitWidgets();
 }
+
+//mili
+void ofxUISuperCanvas::setOtherSelected(bool _selected) {
+    this->isOtherSelected = _selected;
+}
+bool ofxUISuperCanvas::getOtherSelected() {
+    return this->isOtherSelected;
+}
+//

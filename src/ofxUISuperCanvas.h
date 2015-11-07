@@ -61,6 +61,11 @@ public:
     void addWidgetToHeader(ofxUIWidget *widget);
     void removeWidgets();
     
+    //mili
+    void setOtherSelected(bool _selected);
+    bool getOtherSelected();
+    //
+    
 protected:
     void minify();
     void maximize();
@@ -75,4 +80,8 @@ protected:
     float lastHitTime;
     bool bIsMinified;
     bool bTitleLabelHit;
+    
+    //mili
+    bool isOtherSelected;
+    //
 };
