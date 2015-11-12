@@ -31,7 +31,7 @@
     #include "ofxXmlSettings.h"
 #endif 
 
-class ofxUIWidget           
+class ofxUIWidget : public ofNode
 {
 public:
     ofxUIWidget();
