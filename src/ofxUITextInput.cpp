@@ -110,9 +110,9 @@ void ofxUITextInput::drawFill()
     }
 }
 
-void ofxUITextInput::mouseMoved(int x, int y )
+bool ofxUITextInput::mouseMoved(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         state = OFX_UI_STATE_OVER;
     }
@@ -121,15 +121,16 @@ void ofxUITextInput::mouseMoved(int x, int y )
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return false;
 }
 
-void ofxUITextInput::mouseDragged(int x, int y, int button)
+bool ofxUITextInput::mouseDragged(ofMouseEventArgs &e)
 {
     //mili
     if (this->draggable) {
         if (hit) {
-            rect->setX(x - hitPoint.x);
-            rect->setY(y - hitPoint.y);
+            rect->setX(e.x - hitPoint.x);
+            rect->setY(e.y - hitPoint.y);
         }
     }
     else {
@@ -144,14 +145,15 @@ void ofxUITextInput::mouseDragged(int x, int y, int button)
         }
         stateChange();
     }
+    return hit;
 }
 
-void ofxUITextInput::mousePressed(int x, int y, int button)
+bool ofxUITextInput::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         //mili
-        hitPoint.set(x - rect->getX(), y - rect->getY());
+        hitPoint.set(e.x - rect->getX(), e.y - rect->getY());
         //
         if(state == OFX_UI_STATE_OVER)
         {
@@ -183,9 +185,10 @@ void ofxUITextInput::mousePressed(int x, int y, int button)
         }
     }
     stateChange();
+    return hit;
 }
 
-void ofxUITextInput::mouseReleased(int x, int y, int button)
+bool ofxUITextInput::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -203,6 +206,7 @@ void ofxUITextInput::mouseReleased(int x, int y, int button)
     }
     hit = false;
     stateChange();
+    return false;
 }
 
 void ofxUITextInput::keyPressed(int key)

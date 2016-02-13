@@ -56,6 +56,8 @@ void ofxUIWaveform::init(float x, float y, float w, float h, float *_buffer, int
     max = _max;
     min = _min;
     scale = rect->getHeight()*.5;
+    triggerOnClick = true;
+    clicked = false;
 }
 
 void ofxUIWaveform::drawBack()
@@ -97,6 +99,147 @@ void ofxUIWaveform::drawFill()
             ofSetLineWidth(1);
             ofPopMatrix();
         }
+    }
+    if(clicked)
+    {
+        ofNoFill();
+        ofxUISetColor(color_outline_highlight);
+        rect->draw();
+    }
+}
+
+bool ofxUIWaveform::mouseMoved(ofMouseEventArgs &e)
+{
+    if(rect->inside(e.x, e.y))
+    {
+        state = OFX_UI_STATE_OVER;
+    }
+    else
+    {
+        state = OFX_UI_STATE_NORMAL;
+    }
+    stateChange();
+    return false;
+}
+
+bool ofxUIWaveform::mouseDragged(ofMouseEventArgs &e)
+{
+    if (this->hit) {
+        
+        if (this->draggable) {
+            if (hit) {
+                rect->setX(e.x - hitPoint.x);
+                rect->setY(e.y - hitPoint.y);
+            }
+        }
+        else {
+            if(hit)
+            {
+                state = OFX_UI_STATE_DOWN;
+            }
+            else
+            {
+                state = OFX_UI_STATE_NORMAL;
+            }
+            stateChange();
+        }
+    }
+    return hit;
+}
+
+bool ofxUIWaveform::mousePressed(ofMouseEventArgs &e)
+{
+    if(rect->inside(e.x, e.y))
+    {
+        hitPoint.set(e.x - rect->getX(), e.y - rect->getY());
+
+        if(state == OFX_UI_STATE_OVER)
+        {
+            clicked = true;
+            hit = true;
+        }
+#ifdef OFX_UI_TARGET_TOUCH
+        clicked = true;
+        hit = true;
+#endif
+        
+        state = OFX_UI_STATE_DOWN;
+        
+        if(triggerOnClick)
+        {
+            triggerEvent(this);
+        }
+    }
+    else
+    {
+        state = OFX_UI_STATE_NORMAL;
+        if(clicked)
+        {
+            unClick();
+        }
+    }
+    stateChange();
+    return hit;
+}
+
+bool ofxUIWaveform::mouseReleased(ofMouseEventArgs &e)
+{
+    if(hit)
+    {
+        
+#ifdef OFX_UI_TARGET_TOUCH
+        state = OFX_UI_STATE_NORMAL;
+#else
+        state = OFX_UI_STATE_OVER;
+#endif
+    }
+    else
+    {
+        state = OFX_UI_STATE_NORMAL;
+    }
+    hit = false;
+    stateChange();
+    return false;
+}
+
+void ofxUIWaveform::unClick()
+{
+    if(clicked)
+    {
+        clicked = false;
+        triggerEvent(this);
+    }
+}
+
+void ofxUIWaveform::stateChange()
+{
+    switch (state) {
+        case OFX_UI_STATE_NORMAL:
+        {
+            draw_fill_highlight = false;
+            draw_outline_highlight = false;
+        }
+            break;
+        case OFX_UI_STATE_OVER:
+        {
+            draw_fill_highlight = false;
+            draw_outline_highlight = false;
+        }
+            break;
+        case OFX_UI_STATE_DOWN:
+        {
+            draw_fill_highlight = false;
+            draw_outline_highlight = true;
+        }
+            break;
+        case OFX_UI_STATE_SUSTAINED:
+        {
+            draw_fill_highlight = false;
+            draw_outline_highlight = false;
+        }
+            break;
+        default:
+            break;
     }
 }
 
@@ -140,4 +283,9 @@ void ofxUIWaveform::setMaxAndMin(float _max, float _min)
 {
     max = _max;
     min = _min;
+}
+
+void ofxUIWaveform::setTriggerOnClick(bool _triggerOnClick)
+{
+    triggerOnClick = _triggerOnClick;
 }

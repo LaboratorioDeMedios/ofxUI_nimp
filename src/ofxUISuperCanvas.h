@@ -51,20 +51,15 @@ public:
     virtual void touchDoubleTap(float x, float y, int id);
     virtual void touchCancelled(float x, float y, int id);
 #else
-    virtual void onMouseReleased(ofMouseEventArgs& data);
-    virtual void onMousePressed(ofMouseEventArgs& data);
-    virtual void onMouseDragged(ofMouseEventArgs& data);
+    virtual bool onMouseReleased(ofMouseEventArgs& data);
+    virtual bool onMousePressed(ofMouseEventArgs& data);
+    virtual bool onMouseDragged(ofMouseEventArgs& data);
 #endif
     
     virtual void saveSettings(string fileName);
     virtual void loadSettings(string fileName);
     void addWidgetToHeader(ofxUIWidget *widget);
     void removeWidgets();
-    
-    //mili
-    void setOtherSelected(bool _selected);
-    bool getOtherSelected();
-    //
     
 protected:
     void minify();
@@ -81,7 +76,4 @@ protected:
     bool bIsMinified;
     bool bTitleLabelHit;
     
-    //mili
-    bool isOtherSelected;
-    //
 };

@@ -50,9 +50,9 @@ public:
 	vector<ofxUIToggle *> *getTogglesPtr();
 	void triggerEvent(ofxUIWidget *child);
     void setAllowMultiple(bool _allowMultiple);
-    virtual void mouseDragged(int x, int y, int button);
-    virtual void mousePressed(int x, int y, int button);
-    virtual void mouseReleased(int x, int y, int button);
+    virtual bool mouseDragged(ofMouseEventArgs &e);
+    virtual bool mousePressed(ofMouseEventArgs &e);
+    virtual bool mouseReleased(ofMouseEventArgs &e);
 protected:
 	vector<ofxUIToggle *> toggles; 		   
     int rows, cols;

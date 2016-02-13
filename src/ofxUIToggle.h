@@ -35,10 +35,10 @@ public:
 	virtual void setParent(ofxUIWidget *_parent);
     virtual void setDrawPadding(bool _draw_padded_rect);
     virtual void setDrawPaddingOutline(bool _draw_padded_rect_outline);
-    virtual void mouseMoved(int x, int y );
-    virtual void mouseDragged(int x, int y, int button);
-    virtual void mousePressed(int x, int y, int button);
-    virtual void mouseReleased(int x, int y, int button);
+    virtual bool mouseMoved(ofMouseEventArgs &e);
+    virtual bool mouseDragged(ofMouseEventArgs &e);
+    virtual bool mousePressed(ofMouseEventArgs &e);
+    virtual bool mouseReleased(ofMouseEventArgs &e);
     virtual void setValue(bool _value);
     bool hasState(){ return true; };
     virtual void keyPressed(int key);

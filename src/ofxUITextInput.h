@@ -36,10 +36,10 @@ public:
     virtual void setDrawPadding(bool _draw_padded_rect);
     virtual void setDrawPaddingOutline(bool _draw_padded_rect_outline);
     virtual void drawFill();
-    void mouseMoved(int x, int y);
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseMoved(ofMouseEventArgs &e);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
     virtual void keyPressed(int key);
     void unClick();
     void stateChange();

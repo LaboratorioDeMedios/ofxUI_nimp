@@ -81,7 +81,7 @@ void ofxUISortableList::swapListItems(int swapA, int swapB)
     std::swap(listItems[swapA], listItems[swapB]);
 }
 
-void ofxUISortableList::mouseDragged(int x, int y, int button)
+bool ofxUISortableList::mouseDragged(ofMouseEventArgs &e)
 {
     if(activeWidget)
     {
@@ -123,11 +123,12 @@ void ofxUISortableList::mouseDragged(int x, int y, int button)
             }
         }
     }
+    return activeWidget;
 }
 
-void ofxUISortableList::mousePressed(int x, int y, int button)
+bool ofxUISortableList::mousePressed(ofMouseEventArgs &e)
 {
-    activeWidget = getActiveWidget(x, y);
+    activeWidget = getActiveWidget(e.x, e.y);
     if(activeWidget)
     {
         // save the position from where it was dragged (in case we need to put it back there)
@@ -136,13 +137,15 @@ void ofxUISortableList::mousePressed(int x, int y, int button)
         saveY = activeWidgetRectY - rectY;
         lastActiveY = saveY;
     }
+    return activeWidget;
 }
 
-void ofxUISortableList::mouseReleased(int x, int y, int button)
+bool ofxUISortableList::mouseReleased(ofMouseEventArgs &e)
 {
     activeWidgetIndex = -1;
     refreshPositions();
     activeWidget = 0;
+    return false;
 }
 
 void ofxUISortableList::initDragableElements(vector<string> &items, int _size)// build draggable widgets for the sortable items

@@ -35,9 +35,9 @@ public:
     void setSquareSize(float _squareSize);
     void drawFill();
     void drawFillHighlight();
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
     void stateChange();
     void input(int x, int y);
     ofColor& getColor();

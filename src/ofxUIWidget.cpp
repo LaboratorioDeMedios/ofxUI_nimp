@@ -276,7 +276,7 @@ void ofxUIWidget::drawPaddedOutline() {
 #ifdef OFX_UI_TARGET_TOUCH          //iOS Mode
 void ofxUIWidget::touchDown(float x, float y, int id) {
     if(touchId == -1) {
-        this->mousePressed(x, y, 0);
+        this->mousePressed(new ofMouseEventArgs(x, y, 0));
         if(hit) {
             touchId = id;
         }
@@ -285,20 +285,20 @@ void ofxUIWidget::touchDown(float x, float y, int id) {
 
 void ofxUIWidget::touchMoved(float x, float y, int id) {
     if(touchId == id) {
-        this->mouseDragged(x, y, 0);
+        this->mouseDragged(new ofMouseEventArgs(x, y, 0));
     }
 }
 
 void ofxUIWidget::touchUp(float x, float y, int id) {
     if(touchId == id) {
-        this->mouseReleased(x, y, 0);
+        this->mouseReleased(new ofMouseEventArgs(x, y, 0));
         touchId = -1;
     }
 }
 
 void ofxUIWidget::touchCancelled(float x, float y, int id) {
     if(touchId == id) {
-        this->mouseReleased(x, y, 0);
+        this->mouseReleased(new ofMouseEventArgs(x, y, 0));
         touchId = -1;
     }
 }

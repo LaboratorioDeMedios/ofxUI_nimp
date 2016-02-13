@@ -48,10 +48,10 @@ public:
     virtual void drawFill();
     virtual void drawFillHighlight();
     
-    void mouseMoved(int x, int y);
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseMoved(ofMouseEventArgs &e);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
     
     void keyPressed(int key);
     void keyReleased(int key);

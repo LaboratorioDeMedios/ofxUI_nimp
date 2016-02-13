@@ -35,9 +35,9 @@ public:
     vector<ofxUIDraggableLabelButton*> getListItems();
     void reshuffle(std::vector<string> ordering);// reshuffle based on saved ordering
     void swapListItems(int swapA, int swapB);
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
 
 protected:
     void initDragableElements(vector<string> &items, int _size);// build draggable widgets for the sortable items

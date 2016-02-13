@@ -51,7 +51,7 @@ public:
     vector<string> getSelectedNames(); 
     void setLabelText(string labeltext);
     void setParent(ofxUIWidget *_parent);
-    void mouseReleased(int x, int y, int button);
+    bool mouseReleased(ofMouseEventArgs &e);
     void setAutoClose(bool _autoClose);
     void open();
     void close();

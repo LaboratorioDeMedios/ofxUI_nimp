@@ -66,9 +66,9 @@ public:
     void touchUp(float x, float y, int id);
     void touchCancelled(float x, float y, int id);
 #endif
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
     ofxUIRectangle *getSRect();
     virtual bool isHit(int x, int y);
 

@@ -36,10 +36,10 @@ public:
     ~ofxUIButton();
     virtual void init(string _name, bool *_value, float w, float h, float x = 0, float y = 0, int _size = OFX_UI_FONT_SMALL);
     virtual void drawFill();
-    virtual void mouseMoved(int x, int y);
-    virtual void mouseDragged(int x, int y, int button);
-    virtual void mousePressed(int x, int y, int button);
-    virtual void mouseReleased(int x, int y, int button);
+    virtual bool mouseMoved(ofMouseEventArgs &e);
+    virtual bool mouseDragged(ofMouseEventArgs &e);
+    virtual bool mousePressed(ofMouseEventArgs &e);
+    virtual bool mouseReleased(ofMouseEventArgs &e);
     virtual void stateChange();
 	virtual void setParent(ofxUIWidget *_parent);
 	bool getValue();

@@ -159,9 +159,9 @@ void ofxUI2DPad::setIncrement(float _increment)
     increment = _increment;
 }
 
-void ofxUI2DPad::mouseMoved(int x, int y )
+bool ofxUI2DPad::mouseMoved(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         state = OFX_UI_STATE_OVER;
     }
@@ -170,16 +170,17 @@ void ofxUI2DPad::mouseMoved(int x, int y )
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return false;
 }
 
-void ofxUI2DPad::mouseDragged(int x, int y, int button)
+bool ofxUI2DPad::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
         state = OFX_UI_STATE_DOWN;
         if(triggerType & OFX_UI_TRIGGER_CHANGE)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -188,17 +189,18 @@ void ofxUI2DPad::mouseDragged(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUI2DPad::mousePressed(int x, int y, int button)
+bool ofxUI2DPad::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         hit = true;
         state = OFX_UI_STATE_DOWN;
         if(triggerType & OFX_UI_TRIGGER_BEGIN)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -207,9 +209,10 @@ void ofxUI2DPad::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUI2DPad::mouseReleased(int x, int y, int button)
+bool ofxUI2DPad::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -220,7 +223,7 @@ void ofxUI2DPad::mouseReleased(int x, int y, int button)
 #endif
         if(triggerType & OFX_UI_TRIGGER_END)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -230,6 +233,7 @@ void ofxUI2DPad::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 void ofxUI2DPad::keyPressed(int key)

@@ -342,9 +342,9 @@ void ofxUIDropDownList::setParent(ofxUIWidget *_parent)
     paddedRect->set(-padding, -padding, rect->getWidth()+padding*2.0, rect->getHeight()+padding*2.0);
 }
 
-void ofxUIDropDownList::mouseReleased(int x, int y, int button)
+bool ofxUIDropDownList::mouseReleased(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y) && hit)
+    if(rect->inside(e.x, e.y) && hit)
     {
         setValue(!(*value));
 #ifdef OFX_UI_TARGET_TOUCH
@@ -360,6 +360,7 @@ void ofxUIDropDownList::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 void ofxUIDropDownList::setAutoClose(bool _autoClose)

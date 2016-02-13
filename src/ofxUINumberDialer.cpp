@@ -218,12 +218,12 @@ void ofxUINumberDialer::setValue(float _value)
     setTextString(numToString(abs(*value), precision, numOfPrecisionZones, '0'));
 }
 
-void ofxUINumberDialer::mouseMoved(int x, int y )
+bool ofxUINumberDialer::mouseMoved(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         state = OFX_UI_STATE_OVER;
-        hitPoint = ofPoint(x,y);
+        hitPoint = ofPoint(e.x,e.y);
         calculatePrecisionZone();
         
     }
@@ -232,13 +232,14 @@ void ofxUINumberDialer::mouseMoved(int x, int y )
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return false;
 }
 
-void ofxUINumberDialer::mouseDragged(int x, int y, int button)
+bool ofxUINumberDialer::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
-        *value += zoneMultiplier*(hitPoint.y-y);
+        *value += zoneMultiplier*(hitPoint.y-e.y);
         if(*value > max)
         {
             *value = max;
@@ -247,7 +248,7 @@ void ofxUINumberDialer::mouseDragged(int x, int y, int button)
         {
             *value = min;
         }
-        hitPoint = ofPoint(x,y);
+        hitPoint = ofPoint(e.x,e.y);
         setTextString(numToString(abs(*value), precision, numOfPrecisionZones, '0'));
         triggerEvent(this);
         state = OFX_UI_STATE_DOWN;
@@ -257,14 +258,15 @@ void ofxUINumberDialer::mouseDragged(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUINumberDialer::mousePressed(int x, int y, int button)
+bool ofxUINumberDialer::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         hit = true;
-        hitPoint = ofPoint(x,y);
+        hitPoint = ofPoint(e.x,e.y);
         calculatePrecisionZone();
         state = OFX_UI_STATE_DOWN;
         triggerEvent(this);
@@ -274,9 +276,10 @@ void ofxUINumberDialer::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUINumberDialer::mouseReleased(int x, int y, int button)
+bool ofxUINumberDialer::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -293,6 +296,7 @@ void ofxUINumberDialer::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 void ofxUINumberDialer::keyPressed(int key)

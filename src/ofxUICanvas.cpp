@@ -93,6 +93,8 @@ enabled(other.enabled)
     //widgetsAreModal(other.widgetsAreModal),                 //might be problematic
     //widgetsWithState(other.widgetsWithState),               //might be problematic
     //lastAddeds(other.lastAddeds),                           //might be problematic
+    
+    mainComposer = NULL;
 }
 
 // Assignment operator to handle heap allocation during assignment.
@@ -737,13 +739,13 @@ void ofxUICanvas::touchCancelled(float x, float y, int id) {
 
 #else
 
-void ofxUICanvas::mouseMoved(int x, int y) {
-    if(rect->inside(x, y)) {
+bool ofxUICanvas::mouseMoved(ofMouseEventArgs &e) {
+    if(rect->inside(e.x, e.y)) {
         vector<ofxUIWidget *>::iterator it = widgets.begin();
         vector<ofxUIWidget *>::iterator eit = widgets.end();
         for(; it != eit; ++it) {
             if((*it)->isVisible()) {
-                (*it)->mouseMoved(x, y);
+                (*it)->mouseMoved(e);
             }
         }
         bInsideCanvas = true;
@@ -754,29 +756,37 @@ void ofxUICanvas::mouseMoved(int x, int y) {
         map<string, ofxUIWidget*>::iterator eit = widgetsAreModal.end();
         for(; it != eit; ++it) {
             if((*it).second->isVisible()) {
-                (*it).second->mouseMoved(x, y);
+                (*it).second->mouseMoved(e);
             }
         }
     }
+    return false;
 }
 
-void ofxUICanvas::mouseDragged(int x, int y, int button) {
+bool ofxUICanvas::mouseDragged(ofMouseEventArgs &e) {
+    bool result = false;
     vector<ofxUIWidget *>::iterator it = widgets.begin();
     vector<ofxUIWidget *>::iterator eit = widgets.end();
     for(; it != eit; ++it) {
         if((*it)->isVisible()) {
-            (*it)->mouseDragged(x, y, button);
+            if ((*it)->mouseDragged(e)) {
+                result = true;
+            };
         }
     }
+    return result;
 }
 
-void ofxUICanvas::mousePressed(int x, int y, int button) {
-    if(rect->inside(x, y)) {
+bool ofxUICanvas::mousePressed(ofMouseEventArgs &e) {
+    bool result = false;
+    if(rect->inside(e.x, e.y)) {
         vector<ofxUIWidget *>::iterator it = widgets.begin();
         vector<ofxUIWidget *>::iterator eit = widgets.end();
         for(; it != eit; ++it) {
             if((*it)->isVisible()) {
-                (*it)->mousePressed(x, y, button);
+                if ((*it)->mousePressed(e)){
+                    result = true;
+                };
             }
         }
     }
@@ -785,20 +795,27 @@ void ofxUICanvas::mousePressed(int x, int y, int button) {
         map<string, ofxUIWidget*>::iterator eit = widgetsAreModal.end();
         for(; it != eit; ++it) {
             if((*it).second->isVisible()) {
-                (*it).second->mousePressed(x, y, button);
+                if ((*it).second->mousePressed(e)) {
+                    result = true;
+                };
             }
         }
     }
+    if (result && mainComposer != NULL) {
+        mainComposer->deactivateAllPatches();
+    }
+    return result;
 }
 
-void ofxUICanvas::mouseReleased(int x, int y, int button) {
+bool ofxUICanvas::mouseReleased(ofMouseEventArgs &e) {
     vector<ofxUIWidget *>::iterator it = widgets.begin();
     vector<ofxUIWidget *>::iterator eit = widgets.end();
     for(; it != eit; ++it) {
         if((*it)->isVisible()) {
-            (*it)->mouseReleased(x, y, button);
+            (*it)->mouseReleased(e);
         }
     }
+    return false;
 }
 
 void ofxUICanvas::windowResized(int w, int h) {

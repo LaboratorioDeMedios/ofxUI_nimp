@@ -40,10 +40,10 @@ public:
     virtual void drawFillHighlight();
     float getIncrement();
     void setIncrement(float _increment);
-    void mouseMoved(int x, int y);
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseMoved(ofMouseEventArgs &e);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
     void keyPressed(int key);
 	void input(float x, float y);
     void updateValueRef();

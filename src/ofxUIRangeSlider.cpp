@@ -212,9 +212,9 @@ void ofxUIRangeSlider::drawFillHighlight()
     }
 }
 
-void ofxUIRangeSlider::mouseMoved(int x, int y )
+bool ofxUIRangeSlider::mouseMoved(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         state = OFX_UI_STATE_OVER;
     }
@@ -223,9 +223,10 @@ void ofxUIRangeSlider::mouseMoved(int x, int y )
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return false;
 }
 
-void ofxUIRangeSlider::mouseDragged(int x, int y, int button)
+bool ofxUIRangeSlider::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -234,7 +235,7 @@ void ofxUIRangeSlider::mouseDragged(int x, int y, int button)
         hitValueLow = valuelow;
         if(triggerType & OFX_UI_TRIGGER_CHANGE)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -243,11 +244,12 @@ void ofxUIRangeSlider::mouseDragged(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIRangeSlider::mousePressed(int x, int y, int button)
+bool ofxUIRangeSlider::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         hit = true;
         state = OFX_UI_STATE_DOWN;
@@ -255,7 +257,7 @@ void ofxUIRangeSlider::mousePressed(int x, int y, int button)
         hitValueLow = valuelow;
         if(triggerType & OFX_UI_TRIGGER_BEGIN)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -264,9 +266,10 @@ void ofxUIRangeSlider::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIRangeSlider::mouseReleased(int x, int y, int button)
+bool ofxUIRangeSlider::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -277,7 +280,7 @@ void ofxUIRangeSlider::mouseReleased(int x, int y, int button)
 #endif
         if(triggerType & OFX_UI_TRIGGER_END)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -290,6 +293,7 @@ void ofxUIRangeSlider::mouseReleased(int x, int y, int button)
     hitHigh = false;
     hitLow = false;
     hitCenter = false;
+    return false;
 }
 
 void ofxUIRangeSlider::keyPressed(int key)

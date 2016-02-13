@@ -292,9 +292,9 @@ void ofxUISlider_<T>::drawFillHighlight()
 }
 
 template<typename T>
-void ofxUISlider_<T>::mouseMoved(int x, int y )
+bool ofxUISlider_<T>::mouseMoved(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         state = OFX_UI_STATE_OVER;
     }
@@ -303,15 +303,16 @@ void ofxUISlider_<T>::mouseMoved(int x, int y )
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return false;
 }
 
 template<typename T>
-void ofxUISlider_<T>::mouseDragged(int x, int y, int button)
+bool ofxUISlider_<T>::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
         state = OFX_UI_STATE_DOWN;
-        input(x, y);
+        input(e.x, e.y);
         if(triggerType & OFX_UI_TRIGGER_CHANGE)
         {
             triggerEvent(this);
@@ -322,16 +323,17 @@ void ofxUISlider_<T>::mouseDragged(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
 template<typename T>
-void ofxUISlider_<T>::mousePressed(int x, int y, int button)
+bool ofxUISlider_<T>::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         hit = true;
         state = OFX_UI_STATE_DOWN;
-        input(x, y);
+        input(e.x, e.y);
         if(triggerType & OFX_UI_TRIGGER_BEGIN)
         {
             triggerEvent(this);
@@ -342,10 +344,11 @@ void ofxUISlider_<T>::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
 template<typename T>
-void ofxUISlider_<T>::mouseReleased(int x, int y, int button)
+bool ofxUISlider_<T>::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -354,7 +357,7 @@ void ofxUISlider_<T>::mouseReleased(int x, int y, int button)
 #else
         state = OFX_UI_STATE_OVER;
 #endif
-        input(x, y);
+        input(e.x, e.y);
         if(triggerType & OFX_UI_TRIGGER_END)
         {
             triggerEvent(this);
@@ -366,6 +369,7 @@ void ofxUISlider_<T>::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 template<typename T>

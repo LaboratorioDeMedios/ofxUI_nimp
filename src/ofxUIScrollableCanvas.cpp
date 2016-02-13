@@ -486,11 +486,17 @@ void ofxUIScrollableCanvas::touchCancelled(float x, float y, int id)
 
 #endif
 
-void ofxUIScrollableCanvas::mouseDragged(int x, int y, int button)
+bool ofxUIScrollableCanvas::mouseDragged(ofMouseEventArgs &e)
 {
+    bool result = false;
     for(vector<ofxUIWidget *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
     {
-        if((*it)->isVisible())	(*it)->mouseDragged(x, y, button);
+        if((*it)->isVisible()) {
+            if ((*it)->mouseDragged(e)) {
+                result = true;
+                break;
+            };
+        }
     }
     
     if(hit)
@@ -500,12 +506,12 @@ void ofxUIScrollableCanvas::mouseDragged(int x, int y, int button)
             if(isScrolling != true)
             {
                 isScrolling = true;
-                ppos = ofPoint(x,y);
+                ppos = ofPoint(e.x,e.y);
                 vel.set(0,0);
             }
             else
             {
-                pos = ofPoint(x, y);
+                pos = ofPoint(e.x, e.y);
                 vel = pos-ppos;
                 if(scrollX) rect->x +=vel.x;
                 if(scrollY) rect->y +=vel.y;
@@ -513,24 +519,30 @@ void ofxUIScrollableCanvas::mouseDragged(int x, int y, int button)
             }
         }
     }
+    return result;
 }
 
-void ofxUIScrollableCanvas::mousePressed(int x, int y, int button)
+bool ofxUIScrollableCanvas::mousePressed(ofMouseEventArgs &e)
 {
-    if(sRect->inside(x, y))
+    bool result = false;
+    
+    if(sRect->inside(e.x, e.y))
     {
         hit = true;
         for(vector<ofxUIWidget *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
         {
             if((*it)->isVisible())
             {
-                if((*it)->isHit(x, y))
+                if((*it)->isHit(e.x, e.y))
                 {
                     if((*it)->isDraggable())
                     {
                         hitWidget = true;
                     }
-                    (*it)->mousePressed(x, y, button);
+                    if ((*it)->mousePressed(e)){
+                        result = true;
+                        break;
+                    };
                 }
             }
         }
@@ -538,13 +550,14 @@ void ofxUIScrollableCanvas::mousePressed(int x, int y, int button)
     
     isScrolling = false;
     vel.set(0,0);
+    return result;
 }
 
-void ofxUIScrollableCanvas::mouseReleased(int x, int y, int button)
+bool ofxUIScrollableCanvas::mouseReleased(ofMouseEventArgs &e)
 {
     for(vector<ofxUIWidget *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
     {
-        if((*it)->isVisible()) (*it)->mouseReleased(x, y, button);
+        if((*it)->isVisible()) (*it)->mouseReleased(e);
     }
     
     hit = false;
@@ -552,8 +565,9 @@ void ofxUIScrollableCanvas::mouseReleased(int x, int y, int button)
     if(isScrolling)
     {
         isScrolling = false;
-        pos = ofPoint(x,y);
+        pos = ofPoint(e.x,e.y);
     }
+    return false;
 }
 
 ofxUIRectangle *ofxUIScrollableCanvas::getSRect()

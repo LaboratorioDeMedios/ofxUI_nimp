@@ -63,10 +63,10 @@ public:
     void touchDoubleTap(float x, float y, int id) {}
 #endif
 
-	virtual void mouseMoved(int x, int y ) {}
-	virtual void mouseDragged(int x, int y, int button) {}
-	virtual void mousePressed(int x, int y, int button) {}
-	virtual void mouseReleased(int x, int y, int button) {}
+    virtual bool mouseMoved(ofMouseEventArgs &e) { return false; }
+    virtual bool mouseDragged(ofMouseEventArgs &e) { return false; }
+    virtual bool mousePressed(ofMouseEventArgs &e) { return false; }
+    virtual bool mouseReleased(ofMouseEventArgs &e) { return false; }
     
 	virtual void keyPressed(int key) {}
 	virtual void keyReleased(int key) {}

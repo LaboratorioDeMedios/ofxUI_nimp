@@ -54,9 +54,9 @@ void ofxUIToggle::setDrawPaddingOutline(bool _draw_padded_rect_outline)
     label->setDrawPaddingOutline(false);
 }
 
-void ofxUIToggle::mouseMoved(int x, int y )
+bool ofxUIToggle::mouseMoved(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y) || (label->isVisible() && label->getPaddingRect()->inside(x, y)))
+    if(rect->inside(e.x, e.y) || (label->isVisible() && label->getPaddingRect()->inside(e.x, e.y)))
     {
         state = OFX_UI_STATE_OVER;
     }
@@ -65,9 +65,10 @@ void ofxUIToggle::mouseMoved(int x, int y )
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return false;
 }
 
-void ofxUIToggle::mouseDragged(int x, int y, int button)
+bool ofxUIToggle::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -78,11 +79,12 @@ void ofxUIToggle::mouseDragged(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIToggle::mousePressed(int x, int y, int button)
+bool ofxUIToggle::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y) || (label->isVisible() && label->getPaddingRect()->inside(x, y)))
+    if(rect->inside(e.x, e.y) || (label->isVisible() && label->getPaddingRect()->inside(e.x, e.y)))
     {
         hit = true;
         state = OFX_UI_STATE_DOWN;
@@ -92,11 +94,12 @@ void ofxUIToggle::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIToggle::mouseReleased(int x, int y, int button)
+bool ofxUIToggle::mouseReleased(ofMouseEventArgs &e)
 {
-    if((rect->inside(x, y) || (label->isVisible() && label->getPaddingRect()->inside(x, y))) && hit)
+    if((rect->inside(e.x, e.y) || (label->isVisible() && label->getPaddingRect()->inside(e.x, e.y))) && hit)
     {
         setValue(!(*value));
 #ifdef OFX_UI_TARGET_TOUCH
@@ -112,6 +115,7 @@ void ofxUIToggle::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 void ofxUIToggle::setParent(ofxUIWidget *_parent)

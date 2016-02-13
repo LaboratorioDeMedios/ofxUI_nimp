@@ -89,14 +89,14 @@ void ofxUIImageSampler::drawFillHighlight()
     }
 }
 
-void ofxUIImageSampler::mouseDragged(int x, int y, int button)
+bool ofxUIImageSampler::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
         state = OFX_UI_STATE_DOWN;
         if(triggerType & OFX_UI_TRIGGER_CHANGE)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -105,17 +105,18 @@ void ofxUIImageSampler::mouseDragged(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIImageSampler::mousePressed(int x, int y, int button)
+bool ofxUIImageSampler::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         hit = true;
         state = OFX_UI_STATE_DOWN;
         if(triggerType & OFX_UI_TRIGGER_BEGIN)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -124,9 +125,10 @@ void ofxUIImageSampler::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIImageSampler::mouseReleased(int x, int y, int button)
+bool ofxUIImageSampler::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -137,7 +139,7 @@ void ofxUIImageSampler::mouseReleased(int x, int y, int button)
 #endif
         if(triggerType & OFX_UI_TRIGGER_END)
         {
-            input(x, y);
+            input(e.x, e.y);
             triggerEvent(this);
         }
     }
@@ -147,6 +149,7 @@ void ofxUIImageSampler::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 void ofxUIImageSampler::stateChange()

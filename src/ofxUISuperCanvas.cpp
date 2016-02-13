@@ -193,13 +193,13 @@ void ofxUISuperCanvas::touchCancelled(float x, float y, int id)
 
 #else
 
-void ofxUISuperCanvas::onMouseReleased(ofMouseEventArgs& data)
+bool ofxUISuperCanvas::onMouseReleased(ofMouseEventArgs& data)
 {
     bTitleLabelHit = false;
-    mouseReleased(data.x, data.y, data.button);
+    return mouseReleased(data);
 }
 
-void ofxUISuperCanvas::onMousePressed(ofMouseEventArgs& data)
+bool ofxUISuperCanvas::onMousePressed(ofMouseEventArgs& data)
 {
     //mili
     if (this->isDraggable()) {
@@ -213,15 +213,15 @@ void ofxUISuperCanvas::onMousePressed(ofMouseEventArgs& data)
             {
                 toggleMinified();
                 triggerEvent(this);            
-                return;
+                return true;
             }
             lastHitTime = ofGetElapsedTimef();
         }
     }
-    mousePressed(data.x, data.y, data.button);
+    return mousePressed(data);
 }
 
-void ofxUISuperCanvas::onMouseDragged(ofMouseEventArgs& data)
+bool ofxUISuperCanvas::onMouseDragged(ofMouseEventArgs& data)
 {
     //mili
     if (this->isDraggable()) {
@@ -233,7 +233,7 @@ void ofxUISuperCanvas::onMouseDragged(ofMouseEventArgs& data)
             return;
         }
     }
-    mouseDragged(data.x, data.y, data.button);
+    return mouseDragged(data);
 }
 
 #endif
@@ -355,12 +355,3 @@ void ofxUISuperCanvas::maximize()
     }
     autoSizeToFitWidgets();
 }
-
-//mili
-void ofxUISuperCanvas::setOtherSelected(bool _selected) {
-    this->isOtherSelected = _selected;
-}
-bool ofxUISuperCanvas::getOtherSelected() {
-    return this->isOtherSelected;
-}
-//

@@ -198,7 +198,7 @@ void ofxUIToggleMatrix::setAllowMultiple(bool _allowMultiple)
     allowMultiple = _allowMultiple;
 }
 
-void ofxUIToggleMatrix::mouseDragged(int x, int y, int button)
+bool ofxUIToggleMatrix::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -210,17 +210,18 @@ void ofxUIToggleMatrix::mouseDragged(int x, int y, int button)
         
         for(vector<ofxUIToggle *>::iterator it = toggles.begin(); it != toggles.end(); ++it)
         {
-            if((*it)->isHit(x, y))
+            if((*it)->isHit(e.x, e.y))
             {
                 (*it)->setValue(tv);
             }
         }
     }
+    return hit;
 }
 
-void ofxUIToggleMatrix::mousePressed(int x, int y, int button)
+bool ofxUIToggleMatrix::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         hit = true;
         state = OFX_UI_STATE_DOWN;
@@ -230,12 +231,14 @@ void ofxUIToggleMatrix::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIToggleMatrix::mouseReleased(int x, int y, int button)
+bool ofxUIToggleMatrix::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
         hit = false;
     }
+    return false;
 }

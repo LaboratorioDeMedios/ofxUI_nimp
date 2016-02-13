@@ -38,9 +38,9 @@ public:
     void setSortID(string a_id);//TODO again, this is mainly for the ofxSortableList, maybe the ids should be modeled internally in ofxSortableList
     string getSortID();
     int getY();
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
 
     int saveX;
     int saveY;

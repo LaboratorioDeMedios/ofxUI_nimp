@@ -89,36 +89,38 @@ int ofxUIDraggableLabelButton::getY()
     return posY;
 }
 
-void ofxUIDraggableLabelButton::mouseDragged(int x, int y, int button)
+bool ofxUIDraggableLabelButton::mouseDragged(ofMouseEventArgs &e)
 {
-    if(isHit(x, y)) // mouse dragged inside
+    if(isHit(e.x, e.y)) // mouse dragged inside
     {
-        if(!onPressed) return;
-        posX = x - saveX;
-        posY = y - saveY;
+        if(!onPressed) return false;
+        posX = e.x - saveX;
+        posY = e.y - saveY;
     }
     else //mouse dragged outside
     {
-        if(!onPressed) return;
+        if(!onPressed) return false;
         isDraggedOut = true;
-        posX = x - saveX;
-        posY = y - saveY;
+        posX = e.x - saveX;
+        posY = e.y - saveY;
     }
     setPos(posX, posY);
+    return onPressed;
 }
 
-void ofxUIDraggableLabelButton::mousePressed(int x, int y, int button)
+bool ofxUIDraggableLabelButton::mousePressed(ofMouseEventArgs &e)
 {
-    if(isHit(x,y))
+    if(isHit(e.x,e.y))
     {
         isDraggedOut = false;
-        saveX = x - posX;
-        saveY = y - posY;
+        saveX = e.x - posX;
+        saveY = e.y - posY;
         onPressed = true;
+        return true;
     }
 }
 
-void ofxUIDraggableLabelButton::mouseReleased(int x, int y, int button)
+bool ofxUIDraggableLabelButton::mouseReleased(ofMouseEventArgs &e)
 {
     if(onPressed)
     {
@@ -126,4 +128,5 @@ void ofxUIDraggableLabelButton::mouseReleased(int x, int y, int button)
     }
     onPressed = false;
     isDraggedOut = false;
+    return false;
 }

@@ -83,9 +83,9 @@ void ofxUIButton::drawFill()
     }
 }
 
-void ofxUIButton::mouseMoved(int x, int y)
+bool ofxUIButton::mouseMoved(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y) || (label->isVisible() && label->getPaddingRect()->inside(x, y)))
+    if(rect->inside(e.x, e.y) || (label->isVisible() && label->getPaddingRect()->inside(e.x, e.y)))
     {
         state = OFX_UI_STATE_OVER;
     }
@@ -94,13 +94,14 @@ void ofxUIButton::mouseMoved(int x, int y)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return false;
 }
 
-void ofxUIButton::mouseDragged(int x, int y, int button)
+bool ofxUIButton::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
-        if(rect->inside(x, y) || (label->isVisible() && label->getPaddingRect()->inside(x, y)))
+        if(rect->inside(e.x, e.y) || (label->isVisible() && label->getPaddingRect()->inside(e.x, e.y)))
         {
             state = OFX_UI_STATE_DOWN;
         }
@@ -116,11 +117,12 @@ void ofxUIButton::mouseDragged(int x, int y, int button)
         }
         stateChange();
     }
+    return hit;
 }
 
-void ofxUIButton::mousePressed(int x, int y, int button)
+bool ofxUIButton::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y) || (label->isVisible() && label->getPaddingRect()->inside(x, y)))
+    if(rect->inside(e.x, e.y) || (label->isVisible() && label->getPaddingRect()->inside(e.x, e.y)))
     {
         hit = true;
         state = OFX_UI_STATE_DOWN;
@@ -135,16 +137,17 @@ void ofxUIButton::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUIButton::mouseReleased(int x, int y, int button)
+bool ofxUIButton::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
 #ifdef OFX_UI_TARGET_TOUCH
         state = OFX_UI_STATE_NORMAL;
 #else
-        if(rect->inside(x, y) || (label->isVisible() && label->getPaddingRect()->inside(x, y)))
+        if(rect->inside(e.x, e.y) || (label->isVisible() && label->getPaddingRect()->inside(e.x, e.y)))
         {
             state = OFX_UI_STATE_OVER;
         }
@@ -165,6 +168,7 @@ void ofxUIButton::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 void ofxUIButton::stateChange()

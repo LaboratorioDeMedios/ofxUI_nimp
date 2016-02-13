@@ -148,7 +148,7 @@ void ofxUICircleSlider::drawOutlineHighlight()
     }
 }
 
-void ofxUICircleSlider::mouseDragged(int x, int y, int button)
+bool ofxUICircleSlider::mouseDragged(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -157,24 +157,24 @@ void ofxUICircleSlider::mouseDragged(int x, int y, int button)
             switch(inputDirection)
             {
                 case OFX_UI_DIRECTION_NORTHSOUTH:
-                    value -= increment*(hitPoint.y-y);
+                    value -= increment*(hitPoint.y-e.y);
                     valueClamp();
                     break;
                 case OFX_UI_DIRECTION_SOUTHNORTH:
-                    value += increment*(hitPoint.y-y);
+                    value += increment*(hitPoint.y-e.y);
                     valueClamp();
                     break;
                 case OFX_UI_DIRECTION_EASTWEST:
-                    value += increment*(hitPoint.x-x);
+                    value += increment*(hitPoint.x-e.x);
                     valueClamp();
                     break;
                 case OFX_UI_DIRECTION_WESTEAST:
-                    value -= increment*(hitPoint.x-x);
+                    value -= increment*(hitPoint.x-e.x);
                     valueClamp();
                     break;
             }
             
-            hitPoint = ofxUIVec2f(x,y);
+            hitPoint = ofxUIVec2f(e.x,e.y);
             updateValueRef();
             triggerEvent(this);
         }
@@ -185,14 +185,15 @@ void ofxUICircleSlider::mouseDragged(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUICircleSlider::mousePressed(int x, int y, int button)
+bool ofxUICircleSlider::mousePressed(ofMouseEventArgs &e)
 {
-    if(rect->inside(x, y))
+    if(rect->inside(e.x, e.y))
     {
         hit = true;
-        hitPoint = ofxUIVec2f(x,y);
+        hitPoint = ofxUIVec2f(e.x,e.y);
         state = OFX_UI_STATE_DOWN;
         if(triggerType & OFX_UI_TRIGGER_BEGIN)
         {
@@ -204,9 +205,10 @@ void ofxUICircleSlider::mousePressed(int x, int y, int button)
         state = OFX_UI_STATE_NORMAL;
     }
     stateChange();
+    return hit;
 }
 
-void ofxUICircleSlider::mouseReleased(int x, int y, int button)
+bool ofxUICircleSlider::mouseReleased(ofMouseEventArgs &e)
 {
     if(hit)
     {
@@ -226,6 +228,7 @@ void ofxUICircleSlider::mouseReleased(int x, int y, int button)
     }
     stateChange();
     hit = false;
+    return false;
 }
 
 void ofxUICircleSlider::valueClamp()

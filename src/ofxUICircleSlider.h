@@ -40,9 +40,9 @@ public:
     virtual void drawFill();
     virtual void drawFillHighlight();
     virtual void drawOutlineHighlight();
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
+    bool mouseDragged(ofMouseEventArgs &e);
+    bool mousePressed(ofMouseEventArgs &e);
+    bool mouseReleased(ofMouseEventArgs &e);
     void valueClamp();
     void setInputDirection(ofxUIWidgetInputDirection _inputDirection);
     void updateLabel();

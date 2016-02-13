@@ -26,6 +26,7 @@
 
 #include "ofMain.h"
 #include "ofPoint.h"
+#include "enumerations.h"
 
 #ifndef OFX_UI_FONT_RENDERER
 #define OFX_UI_FONT_RENDERER ofTrueTypeFont
@@ -149,19 +150,19 @@ public:
 	//Mouse Callbacks
     void enableMouseEventCallbacks()
     {
-        ofAddListener(ofEvents().mouseReleased, this, &ofxUIAppCBGlue::onMouseReleased);
-        ofAddListener(ofEvents().mousePressed, this, &ofxUIAppCBGlue::onMousePressed);
-        ofAddListener(ofEvents().mouseMoved, this, &ofxUIAppCBGlue::onMouseMoved);
-        ofAddListener(ofEvents().mouseDragged, this, &ofxUIAppCBGlue::onMouseDragged);
+        ofAddListener(ofEvents().mouseReleased, this, &ofxUIAppCBGlue::onMouseReleased, AFTER_MENU_BAR_EVENT_PRIORITY);
+        ofAddListener(ofEvents().mousePressed, this, &ofxUIAppCBGlue::onMousePressed, AFTER_MENU_BAR_EVENT_PRIORITY);
+        ofAddListener(ofEvents().mouseMoved, this, &ofxUIAppCBGlue::onMouseMoved, AFTER_MENU_BAR_EVENT_PRIORITY);
+        ofAddListener(ofEvents().mouseDragged, this, &ofxUIAppCBGlue::onMouseDragged, AFTER_MENU_BAR_EVENT_PRIORITY);
     }
     
 	//Mouse Callbacks
     void disableMouseEventCallbacks()
     {
-        ofRemoveListener(ofEvents().mouseReleased, this, &ofxUIAppCBGlue::onMouseReleased);
-        ofRemoveListener(ofEvents().mousePressed, this, &ofxUIAppCBGlue::onMousePressed);
-        ofRemoveListener(ofEvents().mouseMoved, this, &ofxUIAppCBGlue::onMouseMoved);
-        ofRemoveListener(ofEvents().mouseDragged, this, &ofxUIAppCBGlue::onMouseDragged);
+        ofRemoveListener(ofEvents().mouseReleased, this, &ofxUIAppCBGlue::onMouseReleased, AFTER_MENU_BAR_EVENT_PRIORITY);
+        ofRemoveListener(ofEvents().mousePressed, this, &ofxUIAppCBGlue::onMousePressed, AFTER_MENU_BAR_EVENT_PRIORITY);
+        ofRemoveListener(ofEvents().mouseMoved, this, &ofxUIAppCBGlue::onMouseMoved, AFTER_MENU_BAR_EVENT_PRIORITY);
+        ofRemoveListener(ofEvents().mouseDragged, this, &ofxUIAppCBGlue::onMouseDragged, AFTER_MENU_BAR_EVENT_PRIORITY);
     }
     
     //Window Resize Callback
@@ -217,24 +218,24 @@ public:
 		keyReleased(data.key);
     }
     
-    virtual void onMousePressed(ofMouseEventArgs& data)
+    virtual bool onMousePressed(ofMouseEventArgs& data)
     {
-        mousePressed(data.x, data.y, data.button);
+        return mousePressed(data);
     }
 
-    virtual void onMouseDragged(ofMouseEventArgs& data)
+    virtual bool onMouseDragged(ofMouseEventArgs& data)
     {
-        mouseDragged(data.x, data.y, data.button);
+        return mouseDragged(data);
     }
 
-    virtual void onMouseReleased(ofMouseEventArgs& data)
+    virtual bool onMouseReleased(ofMouseEventArgs& data)
     {
-        mouseReleased(data.x, data.y, data.button);
+        return mouseReleased(data);
     }
         
-    virtual void onMouseMoved(ofMouseEventArgs& data)
+    virtual bool onMouseMoved(ofMouseEventArgs& data)
     {
-        mouseMoved(data.x, data.y);
+        return mouseMoved(data);
     }
 
     void onWindowResized(ofResizeEventArgs& data)
@@ -267,22 +268,22 @@ public:
         
     }
     
-    virtual void mousePressed(int x, int y, int button)
+    virtual bool mousePressed(ofMouseEventArgs& data)
     {
         
     }
 
-    virtual void mouseDragged(int x, int y, int button)
+    virtual bool mouseDragged(ofMouseEventArgs& data)
     {
         
     }
 
-    virtual void mouseReleased(int x, int y, int button)
+    virtual bool mouseReleased(ofMouseEventArgs& data)
     {
         
     }
     
-    virtual void mouseMoved(int x, int y)
+    virtual bool mouseMoved(ofMouseEventArgs& data)
     {
         
     }

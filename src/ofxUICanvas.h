@@ -31,6 +31,7 @@
 #include "ofxUISlider.h"
 #include <vector>
 #include <map>
+#include "ofxComposer.h"
 
 class ofxUICanvas : public ofxUIWidget, public ofxUIAppCBGlue
 {
@@ -85,10 +86,10 @@ public:
 	virtual void touchDoubleTap(float x, float y, int id);
 	virtual void touchCancelled(float x, float y, int id);
 #else
-	virtual void mouseMoved(int x, int y );
-    virtual void mouseDragged(int x, int y, int button);
-    virtual void mousePressed(int x, int y, int button);
-    virtual void mouseReleased(int x, int y, int button);
+	virtual bool mouseMoved(ofMouseEventArgs &e);
+    virtual bool mouseDragged(ofMouseEventArgs &e);
+    virtual bool mousePressed(ofMouseEventArgs &e);
+    virtual bool mouseReleased(ofMouseEventArgs &e);
     virtual void windowResized(int w, int h);
 #endif	
 
@@ -318,6 +319,8 @@ public:
     vector<ofxUIWidget*> getWidgets();
     vector<ofxUIWidget*> getWidgetsOfType(ofxUIWidgetType type);
 	ofEvent<ofxUIEventArgs> newGUIEvent;
+    
+    void setMainComposer(ofxComposer* composer_) { mainComposer = composer_; };
 
 protected:
     void pushbackWidget(ofxUIWidget *widget, bool addWidgetToFront = false);
@@ -368,5 +371,7 @@ protected:
 	ofxUIColor widget_color_padded_rect_outline;
     
     bool bDrawWidgetPadding;
-    bool bDrawWidgetPaddingOutline;    
+    bool bDrawWidgetPaddingOutline;
+    
+    ofxComposer* mainComposer;
 };
