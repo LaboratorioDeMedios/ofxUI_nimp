@@ -50,6 +50,7 @@ public:
     void setMaxAndMin(float _max, float _min);
     void setTriggerOnClick(bool _triggerOnClick);
     
+    
 protected:
 	float *buffer; 
 	float max, min, scale, inc; 

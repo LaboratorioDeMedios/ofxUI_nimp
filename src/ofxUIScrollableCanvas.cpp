@@ -339,37 +339,33 @@ void ofxUIScrollableCanvas::drawPaddedOutline()
 
 void ofxUIScrollableCanvas::draw()
 {
-    ofxUIPushStyle();
-    
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_LIGHTING);
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    ofxUISetRectMode(OFX_UI_RECTMODE_CORNER);
-    ofSetLineWidth(1.0);
-    
-    drawPadded();
-    
-    drawPaddedOutline();
-    
-    drawBack();
-    
-    drawFill();
-    
-    drawFillHighlight();
-    
-    drawOutline();
-    
-    drawOutlineHighlight();
-    
-    for(vector<ofxUIWidget *>::reverse_iterator it = widgets.rbegin(); it != widgets.rend(); ++it)
-    {
-        if((*it)->isVisible() && (*it)->getRect()->rInside(*sRect))
+    if (!noDraw) {
+        ofxUIPushStyle();
+        
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_LIGHTING);
+        ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+        ofxUISetRectMode(OFX_UI_RECTMODE_CORNER);
+        ofSetLineWidth(1.0);
+        
+        drawPadded();
+        drawPaddedOutline();
+        drawBack();
+        drawFill();
+        drawFillHighlight();
+        drawOutline();
+        drawOutlineHighlight();
+        
+        for(vector<ofxUIWidget *>::reverse_iterator it = widgets.rbegin(); it != widgets.rend(); ++it)
         {
-            (*it)->draw();
+            if((*it)->isVisible() && (*it)->getRect()->rInside(*sRect))
+            {
+                (*it)->draw();
+            }
         }
+        
+        ofxUIPopStyle();
     }
-    
-    ofxUIPopStyle();
 }
 
 void ofxUIScrollableCanvas::setPosition(int x, int y)

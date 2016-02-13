@@ -186,6 +186,8 @@ public:
     
 #endif
     
+    void setNoDraw(bool draw_) { noDraw = draw_; }
+    
 protected:
 	ofxUIWidget *parent;
 	ofxUIRectangle *rect;
@@ -231,5 +233,6 @@ protected:
     //mili
     bool draggable;
     ofxUIVec2f hitPoint;
+    bool noDraw;
     //
 };

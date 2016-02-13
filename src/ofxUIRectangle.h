@@ -26,7 +26,7 @@
 
 #include "ofxUIOFWrapper.h"
 
-class ofxUIRectangle
+class ofxUIRectangle : public ofNode
 {
 public:
     ofxUIRectangle();

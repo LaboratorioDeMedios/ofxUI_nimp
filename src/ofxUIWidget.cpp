@@ -62,6 +62,8 @@ triggerType(OFX_UI_TRIGGER_ALL)
 #ifdef OFX_UI_TARGET_TOUCH
     touchId = -1;
 #endif
+    
+    noDraw = false;
 }
 
 
@@ -201,20 +203,22 @@ void ofxUIWidget::update() {
 }
 
 void ofxUIWidget::draw() {
-    ofxUIPushStyle();
-    
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    drawPadded();
-    drawPaddedOutline();
-    drawBack();
-    drawOutline();
-    drawOutlineHighlight();
-    drawFill();
-    drawFillHighlight();
-    
-    ofxUIPopStyle();
+    if (!noDraw) {
+        ofxUIPushStyle();
+        
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
+        drawPadded();
+        drawPaddedOutline();
+        drawBack();
+        drawOutline();
+        drawOutlineHighlight();
+        drawFill();
+        drawFillHighlight();
+        
+        ofxUIPopStyle();
+    }
 }
 
 void ofxUIWidget::drawBack() {
