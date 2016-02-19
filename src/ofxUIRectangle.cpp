@@ -77,6 +77,11 @@ void ofxUIRectangle::setParent(ofxUIRectangle *_parent)
     parent = _parent;
 }
 
+ofxUIRectangle* ofxUIRectangle::getParent()
+{
+    return parent;
+}
+
 void ofxUIRectangle::setHeight(float _height)
 {
     height = _height;

@@ -26,7 +26,7 @@
 
 #include "ofxUIOFWrapper.h"
 
-class ofxUIRectangle : public ofNode
+class ofxUIRectangle
 {
 public:
     ofxUIRectangle();
@@ -34,6 +34,7 @@ public:
     ofxUIRectangle(ofxUIRectangle const & r);
     
     void setParent(ofxUIRectangle *_parent);
+    ofxUIRectangle * getParent();
     
     void set(float px, float py, float w, float h);
     

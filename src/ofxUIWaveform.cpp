@@ -107,100 +107,100 @@ void ofxUIWaveform::drawFill()
         rect->draw();
     }
 }
+//
+//bool ofxUIWaveform::mouseMoved(ofMouseEventArgs &e)
+//{
+//    if(rect->inside(e.x, e.y))
+//    {
+//        state = OFX_UI_STATE_OVER;
+//    }
+//    else
+//    {
+//        state = OFX_UI_STATE_NORMAL;
+//    }
+//    stateChange();
+//    return false;
+//}
 
-bool ofxUIWaveform::mouseMoved(ofMouseEventArgs &e)
-{
-    if(rect->inside(e.x, e.y))
-    {
-        state = OFX_UI_STATE_OVER;
-    }
-    else
-    {
-        state = OFX_UI_STATE_NORMAL;
-    }
-    stateChange();
-    return false;
-}
-
-bool ofxUIWaveform::mouseDragged(ofMouseEventArgs &e)
-{
-    if (this->hit) {
-        
-        if (this->draggable) {
-            if (hit) {
-                rect->setX(e.x - hitPoint.x);
-                rect->setY(e.y - hitPoint.y);
-            }
-        }
-        else {
-            if(hit)
-            {
-                state = OFX_UI_STATE_DOWN;
-            }
-            else
-            {
-                state = OFX_UI_STATE_NORMAL;
-            }
-            stateChange();
-        }
-    }
-    return hit;
-}
-
-bool ofxUIWaveform::mousePressed(ofMouseEventArgs &e)
-{
-    if(rect->inside(e.x, e.y))
-    {
-        hitPoint.set(e.x - rect->getX(), e.y - rect->getY());
-
-        if(state == OFX_UI_STATE_OVER)
-        {
-            clicked = true;
-            hit = true;
-        }
-#ifdef OFX_UI_TARGET_TOUCH
-        clicked = true;
-        hit = true;
-#endif
-        
-        state = OFX_UI_STATE_DOWN;
-        
-        if(triggerOnClick)
-        {
-            triggerEvent(this);
-        }
-    }
-    else
-    {
-        state = OFX_UI_STATE_NORMAL;
-        if(clicked)
-        {
-            unClick();
-        }
-    }
-    stateChange();
-    return hit;
-}
-
-bool ofxUIWaveform::mouseReleased(ofMouseEventArgs &e)
-{
-    if(hit)
-    {
-        
-#ifdef OFX_UI_TARGET_TOUCH
-        state = OFX_UI_STATE_NORMAL;
-#else
-        state = OFX_UI_STATE_OVER;
-#endif
-    }
-    else
-    {
-        state = OFX_UI_STATE_NORMAL;
-    }
-    hit = false;
-    stateChange();
-    return false;
-}
+//bool ofxUIWaveform::mouseDragged(ofMouseEventArgs &e)
+//{
+//    if (this->hit) {
+//        
+//        if (this->draggable) {
+//            if (hit) {
+//                rect->setX(e.x - hitPoint.x);
+//                rect->setY(e.y - hitPoint.y);
+//            }
+//        }
+//        else {
+//            if(hit)
+//            {
+//                state = OFX_UI_STATE_DOWN;
+//            }
+//            else
+//            {
+//                state = OFX_UI_STATE_NORMAL;
+//            }
+//            stateChange();
+//        }
+//    }
+//    return hit;
+//}
+//
+//bool ofxUIWaveform::mousePressed(ofMouseEventArgs &e)
+//{
+//    if(rect->inside(e.x, e.y))
+//    {
+//        hitPoint.set(e.x - rect->getX(), e.y - rect->getY());
+//
+//        if(state == OFX_UI_STATE_OVER)
+//        {
+//            clicked = true;
+//            hit = true;
+//        }
+//#ifdef OFX_UI_TARGET_TOUCH
+//        clicked = true;
+//        hit = true;
+//#endif
+//        
+//        state = OFX_UI_STATE_DOWN;
+//        
+//        if(triggerOnClick)
+//        {
+//            triggerEvent(this);
+//        }
+//    }
+//    else
+//    {
+//        state = OFX_UI_STATE_NORMAL;
+//        if(clicked)
+//        {
+//            unClick();
+//        }
+//    }
+//    stateChange();
+//    return hit;
+//}
+//
+//bool ofxUIWaveform::mouseReleased(ofMouseEventArgs &e)
+//{
+//    if(hit)
+//    {
+//        
+//#ifdef OFX_UI_TARGET_TOUCH
+//        state = OFX_UI_STATE_NORMAL;
+//#else
+//        state = OFX_UI_STATE_OVER;
+//#endif
+//    }
+//    else
+//    {
+//        state = OFX_UI_STATE_NORMAL;
+//    }
+//    hit = false;
+//    stateChange();
+//    return false;
+//}
 
 void ofxUIWaveform::unClick()
 {
@@ -289,3 +289,19 @@ void ofxUIWaveform::setTriggerOnClick(bool _triggerOnClick)
 {
     triggerOnClick = _triggerOnClick;
 }
+
+float ofxUIWaveform::getScale() {
+    return scale;
+};
+
+void ofxUIWaveform::setScale(float scale_) {
+    scale = scale_;
+};
+
+float ofxUIWaveform::getInc() {
+    return inc;
+};
+
+void ofxUIWaveform::setInc(float inc_) {
+    inc = inc_;
+};

@@ -34,10 +34,10 @@ public:
     virtual void init(float x, float y, float w, float h, float *_buffer, int _bufferSize, float _min, float _max, string _name);
     virtual void drawBack();
     virtual void drawFill();
-    bool mouseMoved(ofMouseEventArgs &e);
-    bool mouseDragged(ofMouseEventArgs &e);
-    bool mousePressed(ofMouseEventArgs &e);
-    bool mouseReleased(ofMouseEventArgs &e);
+//    bool mouseMoved(ofMouseEventArgs &e);
+//    bool mouseDragged(ofMouseEventArgs &e);
+//    bool mousePressed(ofMouseEventArgs &e);
+//    bool mouseReleased(ofMouseEventArgs &e);
     void unClick();
     void stateChange();
     void setBuffer(float *_buffer);
@@ -49,6 +49,10 @@ public:
     ofVec2f getMaxAndMind();
     void setMaxAndMin(float _max, float _min);
     void setTriggerOnClick(bool _triggerOnClick);
+    float getScale();
+    void setScale(float scale_);
+    float getInc();
+    void setInc(float inc_);
     
     
 protected:
