@@ -74,6 +74,7 @@ void ofxUIWaveform::drawBack()
 
 void ofxUIWaveform::drawFill()
 {
+    ofPushStyle();
     if(draw_fill)
     {
         ofNoFill();
@@ -106,6 +107,7 @@ void ofxUIWaveform::drawFill()
         ofxUISetColor(color_outline_highlight);
         rect->draw();
     }
+    ofPopStyle();
 }
 //
 //bool ofxUIWaveform::mouseMoved(ofMouseEventArgs &e)
