@@ -62,6 +62,7 @@ void ofxUIWaveform::init(float x, float y, float w, float h, float *_buffer, int
 
 void ofxUIWaveform::drawBack()
 {
+    ofPushStyle();
     if(draw_back)
     {
         ofxUIFill();
@@ -70,6 +71,7 @@ void ofxUIWaveform::drawBack()
         
         ofxUIDrawLine(rect->getX(), rect->getY()+rect->getHalfHeight(), rect->getX()+rect->getWidth(), rect->getY()+rect->getHalfHeight());
     }
+    ofPopStyle();
 }
 
 void ofxUIWaveform::drawFill()
