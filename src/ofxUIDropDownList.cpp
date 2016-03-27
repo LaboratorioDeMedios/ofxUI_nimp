@@ -404,6 +404,19 @@ vector<ofxUILabelToggle *> &ofxUIDropDownList::getToggles()
     return toggles;
 }
 
+vector<ofxUILabelToggle *> ofxUIDropDownList::getVisibleToggles() {
+    
+    vector<ofxUILabelToggle *> visibleToggles;
+    
+    for(unsigned int i = 0; i < toggles.size(); i++)
+    {
+        if (toggles[i]->isVisible())
+            visibleToggles.push_back(toggles[i]);
+    }
+    
+    return visibleToggles;
+}
+
 void ofxUIDropDownList::triggerSelf()
 {
     if(parent != NULL)
@@ -463,6 +476,8 @@ void ofxUIDropDownList::activateToggle(string _name)
         {
             t->setValue(true);
             singleSelected = t;
+            selected.push_back(t);
+            selectedIndeces.push_back(i);
         }
         else
         {

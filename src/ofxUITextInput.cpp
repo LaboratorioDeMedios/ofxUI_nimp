@@ -477,7 +477,8 @@ void ofxUITextInput::setFocus(bool _focus)
 {
     if(_focus)
     {
-        cursorPosition = 0;
+//        cursorPosition = 0;
+        cursorPosition = textstring.length();
         state = OFX_UI_STATE_DOWN;
         inputTriggerType = OFX_UI_TEXTINPUT_ON_FOCUS;
         clicked = true;

@@ -65,6 +65,7 @@ public:
     virtual void setValue(bool _value);
     virtual void setModal(bool _modal);      
     bool isOpen();
+    vector<ofxUILabelToggle *> getVisibleToggles();
     
 protected:
     bool autoSize; 
