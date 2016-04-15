@@ -44,8 +44,12 @@ public:
     float getMin();
     ofVec2f getMaxAndMind();
     void setMaxAndMin(float _max, float _min);
+    float getScale();
+    void setScale(float scale_);
+    float getInc();
+    void setInc(float inc_);
 
-protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent; 
+protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent;
     vector<float> buffer;
     float max, min, scale, inc;
     unsigned int bufferSize; 

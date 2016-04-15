@@ -67,14 +67,16 @@ void ofxUIMovingGraph::drawFill()
         }
         ofPushMatrix();
         ofTranslate(rect->getX(), rect->getY()+scale, 0);
-        ofSetLineWidth(2.0);
+//        ofSetLineWidth(2.0);
         ofBeginShape();
         for (unsigned int i = 0; i < bufferSize; i++)
         {
-            ofVertex(inc*(float)i, ofxUIMap(buffer[i], min, max, scale, -scale, true));
+            if (i < buffer.size())
+                ofVertex(inc*(float)i, ofxUIMap(buffer[i], min, max, scale, -scale, true));
+            else ofVertex(inc*(float)i, ofxUIMap(0, min, max, scale, -scale, true));
         }
         ofEndShape();
-        ofSetLineWidth(1);
+//        ofSetLineWidth(1);
         ofPopMatrix();
     }
 }
@@ -135,3 +137,19 @@ void ofxUIMovingGraph::setMaxAndMin(float _max, float _min)
     max = _max;
     min = _min;
 }
+
+float ofxUIMovingGraph::getScale() {
+    return scale;
+};
+
+void ofxUIMovingGraph::setScale(float scale_) {
+    scale = scale_;
+};
+
+float ofxUIMovingGraph::getInc() {
+    return inc;
+};
+
+void ofxUIMovingGraph::setInc(float inc_) {
+    inc = inc_;
+};
