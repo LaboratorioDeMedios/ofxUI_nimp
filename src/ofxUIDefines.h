@@ -166,6 +166,16 @@ enum ofxUIWidgetPosition
 	OFX_UI_WIDGET_POSITION_RIGHT = 3
 };
 
+enum ofxUITextAlignment
+{
+    OFX_UI_TEXT_ALIGN_LEFT = 0,
+    OFX_UI_TEXT_ALIGN_FREE = 1,
+    OFX_UI_TEXT_ALIGN_RIGHT = 2,
+    OFX_UI_TEXT_ALIGN_TOP = 3,
+    OFX_UI_TEXT_ALIGN_BOTTOM = 4,
+    OFX_UI_TEXT_ALIGN_CENTER = 5
+};
+
 enum ofxUIWidgetFontType
 {
 	OFX_UI_FONT_LARGE = 0,

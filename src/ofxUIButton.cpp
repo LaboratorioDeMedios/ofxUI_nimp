@@ -297,6 +297,26 @@ void ofxUIButton::setLabelPosition(ofxUIWidgetPosition pos)
    calculatePaddingRect();
 }
 
+void ofxUIButton::setLabelAlignment(ofxUITextAlignment al) {
+    textAlignment = al;
+    switch (textAlignment)
+    {
+        case OFX_UI_TEXT_ALIGN_LEFT:
+        {
+            ofxUIRectangle *labelrect = label->getRect();
+            float h = labelrect->getHeight();
+            float ph = rect->getHeight();
+            labelrect->setX(padding*2);
+            labelrect->setY(ph/2.0 - h/2.0);
+        }
+            break;
+            
+        default:
+            break;
+    }
+    calculatePaddingRect();
+}
+
 void ofxUIButton::keyPressed(int key)
 {
     if(getIsBindedToKey(key) && !bKeyHit)

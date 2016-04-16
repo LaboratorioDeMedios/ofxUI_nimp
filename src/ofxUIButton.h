@@ -48,6 +48,7 @@ public:
 	void toggleValue();
     virtual bool isHit(float x, float y);
     void setLabelPosition(ofxUIWidgetPosition pos);
+    void setLabelAlignment(ofxUITextAlignment al);
     virtual bool hasState(){ return false; };
 
     virtual void keyPressed(int key);
@@ -57,4 +58,5 @@ protected:
     bool *value; 
     bool useReference; 
     ofxUIWidgetPosition labelPosition;
+    ofxUITextAlignment textAlignment;
 }; 
